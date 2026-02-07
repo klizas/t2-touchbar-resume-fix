@@ -24,7 +24,7 @@ $(BUILDDIR)/Kbuild: | $(BUILDDIR)
 	@printf 'obj-m += hid-appletb-kbd.o\n' > $@
 
 $(BUILDDIR)/.patched: $(BUILDDIR)/hid-appletb-kbd.c $(PATCH)
-	@if ! grep -q '\.resume = appletb_kbd_resume,' $<; then \
+	@if ! grep -q '\.resume = appletb_kbd_reset_resume,' $<; then \
 		echo "==> Applying patch..."; \
 		cd $(BUILDDIR) && patch -p3 < $(PATCH); \
 	else \

@@ -46,15 +46,11 @@ The driver defines `.reset_resume` (called after USB device reset) but not
 `.resume` (called on normal resume). Since most suspend/resume cycles take the
 normal path, the Touch Bar stays off.
 
-The patch adds a `.resume` callback identical to `.reset_resume`:
+The patch simply points `.resume` to the existing `appletb_kbd_reset_resume`
+handler:
 
 ```c
-static int appletb_kbd_resume(struct hid_device *hdev)
-{
-    struct appletb_kbd *kbd = hid_get_drvdata(hdev);
-    appletb_kbd_set_mode(kbd, kbd->saved_mode);
-    return 0;
-}
+.resume = appletb_kbd_reset_resume,
 ```
 
 ## Build Options
